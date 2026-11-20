@@ -1,0 +1,57 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  {%- assign site_title = site.title | default: "Grocery" -%}
+  {%- assign site_subtitle = site.description | default: "" -%}
+  {%- assign base_url = site.url | default: "https://example.com" -%}
+  {%- assign last_char = base_url | slice: -1, 1 -%}
+  {%- if last_char == '/' -%}
+    {%- assign base_len = base_url | size | minus: 1 -%}
+    {%- assign base_url = base_url | slice: 0, base_len -%}
+  {%- endif -%}
+  {%- assign feed_url = base_url | append: "/feed.xml" -%}
+  {%- assign home_url = base_url | append: "/" -%}
+
+  <title>{{ site_title | escape }}</title>
+  {%- if site_subtitle != blank -%}
+    <subtitle>{{ site_subtitle | escape }}</subtitle>
+  {%- endif -%}
+  <link href="{{ feed_url | escape }}" rel="self" type="application/atom+xml"/>
+  <link href="{{ home_url | escape }}" rel="alternate" type="text/html"/>
+  <id>{{ home_url | escape }}</id>
+  {%- if collections.posts and collections.posts.size > 0 -%}
+    {%- assign latest_post = collections.posts | last -%}
+    <updated>{{ latest_post.date | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+  {%- else -%}
+    <updated>{{ "now" | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+  {%- endif -%}
+  <author>
+    <name>{{ site_title | escape }}</name>
+  </author>
+
+  {%- for post in collections.posts reversed limit: 20 -%}
+    {%- assign post_url = base_url | append: post.url -%}
+    {%- assign post_title = post.data.pageTitle | default: post.data.title | default: "Untitled Post" -%}
+    {%- assign post_summary = post.data.subtitle | default: post.data.description | default: "" -%}
+    {%- assign post_author = post.data.author | default: site_title -%}
+    <entry>
+      <title>{{ post_title | escape }}</title>
+      <link href="{{ post_url | escape }}" rel="alternate" type="text/html"/>
+      <id>{{ post_url | escape }}</id>
+      {%- if post.date -%}
+        <published>{{ post.date | date: "%Y-%m-%dT%H:%M:%SZ" }}</published>
+        <updated>{{ post.date | date: "%Y-%m-%dT%H:%M:%SZ" }}</updated>
+      {%- endif -%}
+      <author>
+        <name>{{ post_author | escape }}</name>
+      </author>
+      {%- if post_summary != blank -%}
+        <summary>{{ post_summary | escape }}</summary>
+      {%- endif -%}
+      <content type="html">{{ post.templateContent | escape }}</content>
+    </entry>
+  {%- endfor -%}
+</feed>

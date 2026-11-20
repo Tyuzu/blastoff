@@ -1,0 +1,25 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {%- assign base_url = site.url | default: "https://example.com" -%}
+  {%- assign last_char = base_url | slice: -1, 1 -%}
+  {%- if last_char == '/' -%}
+    {%- assign base_len = base_url | size | minus: 1 -%}
+    {%- assign base_url = base_url | slice: 0, base_len -%}
+  {%- endif -%}
+
+  {%- for item in collections.all -%}
+    {%- if item.url and item.data.sitemapIgnore != true -%}
+      {%- assign loc = base_url | append: item.url -%}
+      <url>
+        <loc>{{ loc | escape }}</loc>
+        {%- if item.date -%}
+          <lastmod>{{ item.date | date: "%Y-%m-%d" }}</lastmod>
+        {%- endif -%}
+      </url>
+    {%- endif -%}
+  {%- endfor -%}
+</urlset>

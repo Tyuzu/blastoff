@@ -63,3 +63,20 @@
   font-size: 0.875rem;
   color: var(--text-secondary);
 }
+
+.sidebar__link {
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sidebar__tag-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.sidebar__count {
+  font-size: 0.75rem;
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}

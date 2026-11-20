@@ -13,7 +13,7 @@
       site: site
     -%}
   </head>
-  <body class="layout">
+  <body class="layout{% if hideSidebar == true %} layout--no-sidebar{% endif %}">
     <a href="#main-content" class="skip-link">Skip to content</a>
 
     {%- assign headerSiteTitle = site.title | default: resolvedTitle -%}
@@ -26,36 +26,39 @@
     -%}
 
     <div class="layout__body">
-      <div class="layout__sidebar">
-        {%- render 'partials/sidebar.liquid',
-          tags: tags,
-          collections: collections,
-          url: page.url,
-          page: page
-        -%}
+      {%- unless hideSidebar == true -%}
+        {%- assign sidebar_tags = tags | default: collections.tagList -%}
+        <div class="layout__sidebar">
+          {%- render 'partials/sidebar.liquid',
+            tags: sidebar_tags,
+            collections: collections,
+            url: page.url,
+            page: page
+          -%}
 
-        {%- assign sidebar_ad = sidebarAd | default: site.ads.sidebar -%}
-        {%- unless hideSidebarAd == true -%}
-          {%- if sidebar_ad != blank -%}
-            {%- render 'partials/advertisement.liquid',
-              ad: sidebar_ad,
-              variant: sidebar_ad.variant | default: 'sidebar'
-            -%}
-          {%- else -%}
-            {%- render 'partials/advertisement.liquid',
-              variant: 'sidebar',
-              badge: 'Member Perk',
-              title: 'Same-Day Express Delivery',
-              text: 'Free delivery on orders over $50 for members.',
-              ctaLabel: 'Join Free',
-              url: 'https://example.com/delivery-pass',
-              desktopImage: '/assets/ads/delivery-desktop.jpg',
-              mobileImage: '/assets/ads/delivery-mobile.jpg',
-              alt: 'Grocery tote bag ready for delivery'
-            -%}
-          {%- endif -%}
-        {%- endunless -%}
-      </div>
+          {%- assign sidebar_ad = sidebarAd | default: site.ads.sidebar -%}
+          {%- unless hideSidebarAd == true -%}
+            {%- if sidebar_ad != blank -%}
+              {%- render 'partials/advertisement.liquid',
+                ad: sidebar_ad,
+                variant: sidebar_ad.variant | default: 'sidebar'
+              -%}
+            {%- else -%}
+              {%- render 'partials/advertisement.liquid',
+                variant: 'sidebar',
+                badge: 'Member Perk',
+                title: 'Same-Day Express Delivery',
+                text: 'Free delivery on orders over $50 for members.',
+                ctaLabel: 'Join Free',
+                url: 'https://example.com/delivery-pass',
+                desktopImage: '/assets/ads/delivery-desktop.jpg',
+                mobileImage: '/assets/ads/delivery-mobile.jpg',
+                alt: 'Grocery tote bag ready for delivery'
+              -%}
+            {%- endif -%}
+          {%- endunless -%}
+        </div>
+      {%- endunless -%}
 
       <main id="main-content" class="layout__main" tabindex="-1">
         {{ content }}
@@ -65,7 +68,9 @@
     {%- assign currentYear = "now" | date: "%Y" -%}
     {%- render 'partials/footer.liquid',
       year: currentYear,
-      site: site
+      site: site,
+      pages: collections.pages,
+      currentUrl: page.url
     -%}
   </body>
 </html>

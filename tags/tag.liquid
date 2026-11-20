@@ -1,0 +1,86 @@
+---
+layout: layout.liquid
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+permalink: "tags/{{ tag | slugify }}/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber | plus: 1 }}/{% endif %}"
+eleventyComputed:
+  pageTitle: "Tagged “{{ tag }}”"
+  description: "Posts and items tagged with {{ tag }}."
+---
+{%- assign tagged_items = collections[tag] -%}
+
+<section class="tag-archive" aria-labelledby="tag-archive-heading">
+  <header class="tag-archive__header">
+    <h1 id="tag-archive-heading" class="tag-archive__title">
+      <span class="tag-archive__hash" aria-hidden="true">#</span>{{ tag | escape }}
+    </h1>
+    {%- if tagged_items and tagged_items.size > 0 -%}
+      <p class="tag-archive__count">
+        {{ tagged_items.size }} {% if tagged_items.size == 1 %}item{% else %}items{% endif %}
+      </p>
+    {%- endif -%}
+  </header>
+
+  {%- if tagged_items and tagged_items.size > 0 -%}
+    <ul class="post-list">
+      {%- for item in tagged_items reversed -%}
+        {%- assign item_title = item.data.pageTitle | default: item.data.title | default: "Untitled" -%}
+        <li class="post-list__item">
+          <article class="post-card">
+            <h2 class="post-card__title">
+              <a href="{{ item.url | escape }}">{{ item_title | escape }}</a>
+            </h2>
+
+            {%- if item.date -%}
+              <time class="post-card__date" datetime="{{ item.date | date: '%Y-%m-%d' }}">
+                {{ item.date | date: "%B %d, %Y" }}
+              </time>
+            {%- endif -%}
+
+            {%- if item.data.subtitle != blank -%}
+              <p class="post-card__subtitle">{{ item.data.subtitle | escape }}</p>
+            {%- elsif item.data.description != blank -%}
+              <p class="post-card__excerpt">{{ item.data.description | escape }}</p>
+            {%- endif -%}
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- else -%}
+    <p class="tag-archive__empty">No items found for this tag.</p>
+  {%- endif -%}
+
+  {%- if pagination.pages.size > 1 -%}
+    <nav class="pagination" aria-label="Tag archive pagination">
+      <ul class="pagination__list">
+        {%- if pagination.previousPageHref -%}
+          <li class="pagination__item">
+            <a href="{{ pagination.previousPageHref | escape }}" class="pagination__link">Previous</a>
+          </li>
+        {%- endif -%}
+
+        {%- for pageHref in pagination.hrefs -%}
+          {%- assign page_num = forloop.index -%}
+          {%- assign current_num = pagination.pageNumber | plus: 1 -%}
+          <li class="pagination__item">
+            <a
+              href="{{ pageHref | escape }}"
+              class="pagination__link{% if page_num == current_num %} is-active{% endif %}"
+              {% if page_num == current_num %}aria-current="page"{% endif %}
+            >
+              {{ page_num }}
+            </a>
+          </li>
+        {%- endfor -%}
+
+        {%- if pagination.nextPageHref -%}
+          <li class="pagination__item">
+            <a href="{{ pagination.nextPageHref | escape }}" class="pagination__link">Next</a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </nav>
+  {%- endif -%}
+</section>
