@@ -1,0 +1,24 @@
+<section class="tool-hero">
+  <div class="eyebrow"><span class="eyebrow-dot"></span> FREE ONLINE CONVERTER</div>
+  <h1>{{ pageTitle | escape }}</h1>
+  <p>{{ description | escape }}</p>
+</section>
+<section class="converter-card" data-converter="{{ converterType }}" data-output="{{ outputFormat }}">
+  <div class="upload-zone" id="upload-zone" tabindex="0" role="button" aria-label="Choose a file or drop it here">
+    <div class="upload-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 32V8m0 0L14 18m10-10 10 10M8 31v8a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2v-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2>Drop your file here</h2>
+    <p>or <span>browse files</span> from your device</p>
+    <small>{{ acceptedTypes }}</small>
+    <input id="file-input" type="file" accept="{{ accept }}" hidden>
+  </div>
+  <div class="file-panel" id="file-panel" hidden>
+    <div class="file-info"><div class="file-symbol" id="file-symbol">FILE</div><div class="file-meta"><strong id="file-name"></strong><span id="file-size"></span></div><button type="button" class="remove-file" id="remove-file" aria-label="Remove file">×</button></div>
+    <div class="progress-track" id="progress-track" hidden><span id="progress-bar"></span></div>
+    <p class="status" id="status" aria-live="polite">Ready to convert</p>
+    <button class="convert-button" id="convert-button" type="button">Convert to {{ outputFormat | upcase }} <span>→</span></button>
+    <a class="download-button" id="download-button" hidden download>Download converted file ↓</a>
+  </div>
+  <p class="privacy-note"><span>🔒</span> Your files are processed in your browser and are not uploaded to a server.</p>
+</section>
+<section class="how-section"><h2>How to convert {{ sourceFormat | upcase }} to {{ outputFormat | upcase }}</h2><div class="steps"><article><b>01</b><h3>Choose a file</h3><p>Upload a {{ sourceFormat | upcase }} file from your device.</p></article><article><b>02</b><h3>Convert</h3><p>PicOK processes your file right in your browser.</p></article><article><b>03</b><h3>Download</h3><p>Save your converted {{ outputFormat | upcase }} file.</p></article></div></section>
+<script src="/assets/js/converter.js" defer></script>

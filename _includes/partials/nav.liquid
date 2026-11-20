@@ -1,51 +1,8 @@
-{%- assign active_url = currentUrl | default: page.url | default: '/' -%}
-{%- assign home_label = navHomeLabel | default: "Home" -%}
-
-<div class="navigation">
-  <input class="toggle" type="checkbox" id="nav-more-toggle" aria-hidden="true" tabindex="-1">
-
-  <div class="navigation__inner">
-    <ul class="navigation__list horizontal">
-      <li class="navigation__item">
-        <a
-          href="/"
-          class="navigation__link{% if active_url == '/' %} active{% endif %}"
-          {% if active_url == '/' %}aria-current="page"{% endif %}
-        >
-          {{ home_label | escape }}
-        </a>
-      </li>
-
-      {%- for pg in pages -%}
-        {%- assign pg_url = pg.url -%}
-        {%- if pg_url and pg_url != '/' -%}
-          {%- assign is_active = false -%}
-          {%- if active_url == pg_url -%}
-            {%- assign is_active = true -%}
-          {%- endif -%}
-
-          {%- assign link_label = pg.data.navTitle | default: pg.data.pageTitle | default: pg.navTitle | default: pg.title -%}
-          {%- if link_label != blank -%}
-            <li class="navigation__item">
-              <a
-                href="{{ pg_url | escape }}"
-                class="navigation__link{% if is_active %} active{% endif %}"
-                {% if is_active %}aria-current="page"{% endif %}
-              >
-                {{ link_label | escape }}
-              </a>
-            </li>
-          {%- endif -%}
-        {%- endif -%}
-      {%- endfor -%}
-    </ul>
-
-    {%- if pages != blank and pages.size > 0 -%}
-      <div class="navigation__toggle">
-        <label class="navigation__link navigation__more-label" for="nav-more-toggle">
-          More
-        </label>
-      </div>
-    {%- endif -%}
-  </div>
-</div>
+<nav class="main-nav" aria-label="Main navigation">
+  <a href="/" class="{% if currentUrl == '/' %}active{% endif %}">Home</a>
+  <a href="/png-to-jpg/" class="{% if currentUrl contains '/png-to-jpg' %}active{% endif %}">PNG to JPG</a>
+  <a href="/jpg-to-png/" class="{% if currentUrl contains '/jpg-to-png' %}active{% endif %}">JPG to PNG</a>
+  <a href="/webp-to-png/" class="{% if currentUrl contains '/webp-to-png' %}active{% endif %}">WebP to PNG</a>
+  <a href="/mp4-to-webm/" class="{% if currentUrl contains '/mp4-to-webm' %}active{% endif %}">MP4 to WebM</a>
+  <a href="/tools/">All tools</a>
+</nav>
