@@ -52,7 +52,16 @@
 {%- if scripts != blank -%}
   {%- for src in scripts -%}
     {%- if src != blank -%}
-      <script src="{{ src | escape }}" defer></script>
+      <script type="module"  src="{{ src | escape }}" defer></script>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if moduleScripts != blank -%}
+  {%- for src in moduleScripts -%}
+    {%- if src != blank -%}
+      <link rel="modulepreload" href="{{ src | escape }}">
+      <script type="module" src="{{ src | escape }}"></script>
     {%- endif -%}
   {%- endfor -%}
 {%- endif -%}

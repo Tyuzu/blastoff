@@ -1,4 +1,5 @@
-{%- assign header_title = siteTitle | default: site.title | default: "Grocery" -%}
+{%- assign header_title = siteTitle | default: site.title | default: "PicOK" -%}
+{%- assign active_url = currentUrl | default: page.url -%}
 
 <header class="site-header">
   <div class="site-header__inner">
@@ -18,16 +19,30 @@
       </svg>
     </button>
 
-    <nav id="PrimaryNav" class="site-header__nav" aria-label="Primary navigation">
-      {%- render 'partials/nav.liquid', pages: pages, currentUrl: currentUrl, siteTitle: header_title -%}
-    </nav>
+    {%- render 'partials/nav.liquid',
+      mode: 'primary',
+      id: 'PrimaryNav',
+      navigation: navigation,
+      pages: pages,
+      page: page,
+      currentUrl: active_url
+    -%}
   </div>
+
+  {%- render 'partials/nav.liquid',
+    mode: 'secondary',
+    navigation: navigation,
+    pages: pages,
+    page: page,
+    currentUrl: active_url
+  -%}
 </header>
 
 <script>
   (() => {
     const header = document.currentScript.previousElementSibling;
     if (!header) return;
+
     const toggle = header.querySelector('.site-header__toggle');
     const nav = header.querySelector('#PrimaryNav');
     if (!toggle || !nav) return;

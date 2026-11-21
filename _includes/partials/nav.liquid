@@ -1,9 +1,68 @@
-<nav class="main-nav" aria-label="Main navigation">
-  <a href="/" class="{% if currentUrl == '/' %}active{% endif %}">Home</a>
-  <a href="/png-to-jpg/" class="{% if currentUrl contains '/png-to-jpg' %}active{% endif %}">PNG to JPG</a>
-  <a href="/jpg-to-png/" class="{% if currentUrl contains '/jpg-to-png' %}active{% endif %}">JPG to PNG</a>
-  <a href="/webp-to-png/" class="{% if currentUrl contains '/webp-to-png' %}active{% endif %}">WebP to PNG</a>
-  <a href="/mp4-to-webm/" class="{% if currentUrl contains '/mp4-to-webm' %}active{% endif %}">MP4 to WebM</a>
-  <a href="/webm-to-mp4/" class="{% if currentUrl contains '/webm-to-mp4' %}active{% endif %}">WebM to MP4</a>
-  <a href="/tools/">All tools</a>
-</nav>
+{%- assign current_path = currentUrl | default: page.url -%}
+{%- assign active_category = nil -%}
+
+{%- for cat in navigation.categories -%}
+  {%- if current_path == cat.hubUrl -%}
+    {%- assign active_category = cat -%}
+  {%- endif -%}
+  {%- for prefix in cat.matchPrefixes -%}
+    {%- if current_path contains prefix -%}
+      {%- assign active_category = cat -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+{%- if mode == "primary" -%}
+  <nav{% if id %} id="{{ id | escape }}"{% endif %} class="primary-nav" aria-label="Main navigation">
+    {%- for cat in navigation.categories -%}
+      <details class="nav-dropdown"{% if active_category.id == cat.id %} data-active="true"{% endif %}>
+        <summary class="nav-trigger{% if active_category.id == cat.id %} is-active{% endif %}">
+          <span>{{ cat.label | escape }}</span>
+          <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+            <path d="M2.5 4.5L6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </summary>
+
+        <div class="mega-panel">
+          <div class="mega-grid">
+            {%- for group in cat.groups -%}
+              <div class="mega-group">
+                <div class="mega-heading">{{ group.title | escape }}</div>
+                <ul class="mega-list">
+                  {%- for item in group.items -%}
+                    <li>
+                      <a href="{{ item.url }}" class="mega-link{% if current_path == item.url %} is-current{% endif %}">
+                        {{ item.label | escape }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="mega-footer">
+            <a href="{{ cat.hubUrl }}">Explore all {{ cat.label | escape }} tools &rarr;</a>
+          </div>
+        </div>
+      </details>
+    {%- endfor -%}
+  </nav>
+
+{%- elsif mode == "secondary" and active_category -%}
+  <nav class="secondary-nav" aria-label="{{ active_category.label | escape }} tools">
+    <div class="secondary-inner">
+      <a href="{{ active_category.hubUrl }}" class="secondary-badge">
+        {{ active_category.label | escape }}
+      </a>
+      <div class="secondary-scroll">
+        {%- for group in active_category.groups -%}
+          {%- for item in group.items -%}
+            <a href="{{ item.url }}" class="sub-pill{% if current_path == item.url %} is-current{% endif %}">
+              {{ item.label | escape }}
+            </a>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </nav>
+{%- endif -%}

@@ -3,21 +3,56 @@
 <head>
   {%- assign resolvedTitle = title | default: pageTitle | default: site.title -%}
   {%- assign resolvedDescription = description | default: site.description -%}
-  {%- render 'partials/head.liquid', pageTitle: resolvedTitle, description: resolvedDescription, styles: styles, scripts: scripts, page: page, site: site -%}
+  {%- render 'partials/head.liquid',
+    pageTitle: resolvedTitle,
+    description: resolvedDescription,
+    styles: styles,
+    scripts: scripts,
+    page: page,
+    site: site
+  -%}
 </head>
 <body class="layout">
   <a href="#main-content" class="skip-link">Skip to content</a>
-  <header class="site-header">
-    <div class="site-header__inner">
-      <a class="brand" href="/" aria-label="PicOK home"><span class="brand-mark">P</span><span>Pic<span>OK</span></span></a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
-      <div id="primary-nav" class="nav-wrap">{%- render 'partials/nav.liquid', currentUrl: page.url -%}</div>
+
+  {%- render 'partials/header.liquid',
+    siteTitle: site.title,
+    site: site,
+    page: page,
+    pages: pages,
+    navigation: navigation,
+    currentUrl: page.url
+  -%}
+
+  <main id="main-content" class="site-main">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark">P</span><span>Pic<span>OK</span></span>
+      </a>
+      <p>Simple file conversions. No account. No fuss.</p>
+      <span>&copy; {{ "now" | date: "%Y" }} PicOK</span>
     </div>
-  </header>
-  <main id="main-content" class="site-main">{{ content }}</main>
-  <footer class="site-footer"><div class="footer-inner"><a class="brand" href="/"><span class="brand-mark">P</span><span>Pic<span>OK</span></span></a><p>Simple file conversions. No account. No fuss.</p><span>© {{ "now" | date: "%Y" }} PicOK</span></div></footer>
+  </footer>
+
   <script>
-  (()=>{const b=document.querySelector('.menu-toggle'),n=document.querySelector('.nav-wrap');if(b&&n)b.addEventListener('click',()=>{const v=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!v));n.classList.toggle('open',!v)})})();
+    (() => {
+      const header = document.querySelector('.site-header');
+      if (!header) return;
+
+      const toggle = header.querySelector('.menu-toggle');
+      const nav = header.querySelector('#primary-nav');
+      if (!toggle || !nav) return;
+
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('open', !expanded);
+      });
+    })();
   </script>
 </body>
 </html>
