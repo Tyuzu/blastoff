@@ -1,0 +1,42 @@
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+  {% if title %}
+    {{ title }} | {{ site.name }}
+  {% else %}
+    {{ site.name }}
+  {% endif %}
+</title>
+
+<meta name="description"
+      content="{{ description | default: site.description }}">
+
+<meta name="author" content="{{ site.author }}">
+
+<link rel="canonical"
+      href="{{ site.url }}{{ page.url }}">
+
+<meta property="og:title"
+      content="{{ title | default: site.name }}">
+
+<meta property="og:description"
+      content="{{ description | default: site.description }}">
+
+<meta property="og:type" content="website">
+
+<meta property="og:url"
+      content="{{ site.url }}{{ page.url }}">
+
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/navigation.css">
+<link rel="stylesheet" href="/assets/css/responsive.css">
+
+{% if page.extraCSS %}
+  {% for stylesheet in page.extraCSS %}
+    <link rel="stylesheet" href="{{ stylesheet }}">
+  {% endfor %}
+{% endif %}

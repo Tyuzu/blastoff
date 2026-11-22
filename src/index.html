@@ -1,0 +1,92 @@
+---
+layout: layouts/layout.liquid
+title: Home
+description: Welcome to our website.
+permalink: /
+bodyClass: home-page
+showPageTitle: false
+
+breadcrumbs:
+  - title: Home
+    url: /
+
+secondaryNavigation:
+  - title: Overview
+    url: /
+  - title: Latest
+    url: /latest/
+  - title: Popular
+    url: /popular/
+
+sidebar:
+  title: Explore
+  items:
+    - title: About Us
+      url: /about/
+      children:
+        - title: Our Story
+          url: /about/story/
+        - title: Our Team
+          url: /about/team/
+
+    - title: Services
+      url: /services/
+      children:
+        - title: Development
+          url: /services/development/
+        - title: Design
+          url: /services/design/
+---
+
+<section class="hero">
+
+  <h1>Welcome to {{ site.name }}</h1>
+
+  <p>
+    Discover our services, resources and latest updates.
+  </p>
+
+  <a href="/about/" class="button">
+    Learn More
+  </a>
+
+</section>
+
+<section class="home-content">
+
+  <h2>Explore Our Website</h2>
+
+  <p>
+    Build your experience with our collection of information
+    and resources.
+  </p>
+
+</section>
+
+<section class="featured-section">
+
+  <h2>Featured Content</h2>
+
+  <div class="featured-grid">
+
+    <article class="featured-card">
+      <h3>About Us</h3>
+      <p>Learn more about our organization.</p>
+      <a href="/about/">Explore</a>
+    </article>
+
+    <article class="featured-card">
+      <h3>Our Services</h3>
+      <p>Discover what we offer.</p>
+      <a href="/services/">Explore</a>
+    </article>
+
+    <article class="featured-card">
+      <h3>Resources</h3>
+      <p>Browse our resources.</p>
+      <a href="/resources/">Explore</a>
+    </article>
+
+  </div>
+
+</section>

@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: 'en' }}">
+<head>
+  {% include "partials/head.liquid" %}
+</head>
+
+<body class="{{ bodyClass | default: 'page' }}">
+
+  <!-- Website Header -->
+  {% include "partials/header.liquid" %}
+
+  <!-- Primary Navigation -->
+  {% include "partials/nav.liquid" %}
+
+  <!-- Secondary Navigation -->
+  {% include "partials/secondary-nav.liquid" %}
+
+  <!-- Breadcrumb Navigation -->
+  {% include "partials/breadcrumbs.liquid" %}
+
+  <!-- Main Page Layout -->
+  <div class="site-container">
+
+    <!-- Sidebar -->
+    {% include "partials/sidebar.liquid" %}
+
+    <!-- Main Content -->
+    {% include "partials/main.liquid" %}
+
+  </div>
+
+  <!-- Footer -->
+  {% include "partials/footer.liquid" %}
+
+  <!-- Global Modal -->
+  {% include "partials/modal.liquid" %}
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/navigation.js" defer></script>
+  <script src="/assets/js/modal.js" defer></script>
+<a href="#main-content" class="skip-link">
+  Skip to main content
+</a>
+</body>
+</html>

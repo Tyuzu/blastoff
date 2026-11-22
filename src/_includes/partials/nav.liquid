@@ -1,0 +1,54 @@
+
+<nav
+  class="primary-nav"
+  id="primary-navigation"
+  aria-label="Primary navigation">
+
+  <ul class="nav-list">
+
+    {% for item in navigation.primary %}
+
+      <li class="nav-item
+        {% if item.children %}
+          has-dropdown
+        {% endif %}
+        {% if page.url == item.url %}
+          active
+        {% endif %}">
+
+        <a href="{{ item.url }}">
+          {{ item.title }}
+        </a>
+
+        {% if item.children %}
+
+          <button
+            class="dropdown-toggle"
+            aria-expanded="false"
+            aria-label="Toggle {{ item.title }} submenu">
+            +
+          </button>
+
+          <ul class="dropdown-menu">
+
+            {% for child in item.children %}
+
+              <li>
+                <a href="{{ child.url }}">
+                  {{ child.title }}
+                </a>
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        {% endif %}
+
+      </li>
+
+    {% endfor %}
+
+  </ul>
+
+</nav>

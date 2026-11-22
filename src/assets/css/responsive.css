@@ -1,0 +1,203 @@
+
+/* ========================================
+   TABLETS
+======================================== */
+
+@media (max-width: 1024px) {
+
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  .site-container {
+    gap: 20px;
+    padding: 18px;
+  }
+
+  .site-main {
+    padding: 24px;
+  }
+
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+
+  .header-inner {
+    padding: 0 16px;
+  }
+
+  .site-tagline {
+    display: none;
+  }
+
+  .header-actions form {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  /* Primary navigation */
+
+  .primary-nav {
+    display: none;
+
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+  }
+
+  .primary-nav.is-open {
+    display: block;
+  }
+
+  .nav-list {
+    display: block;
+    padding: 10px 16px;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .nav-item > a {
+    flex: 1;
+    padding: 13px;
+  }
+
+  .dropdown-toggle {
+    margin: 0;
+    padding: 10px 16px;
+  }
+
+  .dropdown-menu {
+    position: static;
+
+    width: 100%;
+    box-shadow: none;
+
+    border: none;
+    border-radius: 0;
+
+    background: #334155;
+  }
+
+  .dropdown-menu a {
+    color: white;
+  }
+
+  .dropdown-menu a:hover {
+    background: #475569;
+    color: white;
+  }
+
+  .nav-item:hover > .dropdown-menu {
+    display: none;
+  }
+
+  .nav-item.dropdown-open > .dropdown-menu {
+    display: block;
+  }
+
+  /* Secondary navigation */
+
+  .secondary-nav-inner {
+    padding: 0 16px;
+    gap: 22px;
+  }
+
+  /* Main layout */
+
+  .site-container {
+    display: flex;
+    flex-direction: column;
+
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .site-sidebar {
+    position: static;
+
+    width: 100%;
+    max-height: none;
+  }
+
+  .site-main {
+    width: 100%;
+    padding: 22px;
+  }
+
+  /* Content */
+
+  .hero {
+    padding: 35px 24px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .page-header h1 {
+    font-size: 28px;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+
+  .site-logo {
+    font-size: 20px;
+  }
+
+  .site-main {
+    padding: 18px;
+  }
+
+  .hero {
+    padding: 28px 20px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+
+  .page-content h2 {
+    font-size: 22px;
+  }
+
+  .breadcrumbs {
+    padding: 12px 16px;
+  }
+
+  .footer-inner {
+    padding: 35px 18px 18px;
+  }
+
+  .site-footer nav ul {
+    gap: 14px;
+  }
+
+}

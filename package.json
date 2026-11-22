@@ -4,6 +4,8 @@
   "description": "To Run",
   "main": "index.js",
   "scripts": {
+    "run": "eleventy --serve",
+    "build": "eleventy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

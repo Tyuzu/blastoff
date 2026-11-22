@@ -1,0 +1,28 @@
+
+{% if secondaryNavigation %}
+
+<nav class="secondary-nav"
+     aria-label="Section navigation">
+
+  <div class="secondary-nav-inner">
+
+    {% for item in secondaryNavigation %}
+
+      <a
+        href="{{ item.url }}"
+        class="secondary-nav-item
+          {% if page.url == item.url %}
+            active
+          {% endif %}">
+
+        {{ item.title }}
+
+      </a>
+
+    {% endfor %}
+
+  </div>
+
+</nav>
+
+{% endif %}

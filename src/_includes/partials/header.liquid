@@ -1,0 +1,43 @@
+
+<header class="site-header">
+
+  <div class="header-inner">
+
+    <div class="site-branding">
+      <a href="/" class="site-logo">
+        {{ site.name }}
+      </a>
+
+      <p class="site-tagline">
+        {{ site.tagline }}
+      </p>
+    </div>
+
+    <div class="header-actions">
+
+      <form action="/search/" method="get" role="search">
+        <input
+          type="search"
+          name="q"
+          placeholder="Search website..."
+          aria-label="Search website">
+
+        <button type="submit">
+          Search
+        </button>
+      </form>
+
+      <button
+        type="button"
+        class="menu-toggle"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="primary-navigation">
+        ☰
+      </button>
+
+    </div>
+
+  </div>
+
+</header>

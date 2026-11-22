@@ -1,0 +1,59 @@
+
+{
+  "primary": [
+    {
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "title": "About",
+      "url": "/about/",
+      "children": [
+        {
+          "title": "Our Story",
+          "url": "/about/story/"
+        },
+        {
+          "title": "Our Team",
+          "url": "/about/team/"
+        }
+      ]
+    },
+    {
+      "title": "Services",
+      "url": "/services/",
+      "children": [
+        {
+          "title": "Web Development",
+          "url": "/services/web-development/"
+        },
+        {
+          "title": "Design",
+          "url": "/services/design/"
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "url": "/resources/"
+    },
+    {
+      "title": "Contact",
+      "url": "/contact/"
+    }
+  ],
+  "footer": [
+    {
+      "title": "About",
+      "url": "/about/"
+    },
+    {
+      "title": "Contact",
+      "url": "/contact/"
+    },
+    {
+      "title": "Privacy Policy",
+      "url": "/privacy/"
+    }
+  ]
+}
