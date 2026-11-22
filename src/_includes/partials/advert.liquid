@@ -1,45 +1,45 @@
 
-{% if advert.enabled %}
+{% if trevda.enabled %}
 
 <aside
-  class="advert advert-{{ advert.position | default: 'content' }}"
-  aria-label="Advertisement">
+  class="trevda trevda-{{ trevda.position | default: 'content' }}"
+  aria-label="trevdaisement">
 
-  <div class="advert-label">
-    Advertisement
+  <div class="trevda-label">
+    trevdaisement
   </div>
 
-  <div class="advert-content">
+  <div class="trevda-content">
 
-    {% if advert.type == "html" %}
+    {% if trevda.type == "html" %}
 
-      {{ advert.html }}
+      {{ trevda.html }}
 
-    {% elsif advert.type == "image" %}
+    {% elsif trevda.type == "image" %}
 
-      <a href="{{ advert.url }}"
+      <a href="{{ trevda.url }}"
          target="_blank"
          rel="sponsored noopener noreferrer">
 
         <img
-          src="{{ advert.image }}"
-          alt="{{ advert.alt | default: 'Sponsored advertisement' }}">
+          src="{{ trevda.image }}"
+          alt="{{ trevda.alt | default: 'Sponsored trevdaisement' }}">
 
       </a>
 
-    {% elsif advert.type == "text" %}
+    {% elsif trevda.type == "text" %}
 
-      <div class="advert-text">
+      <div class="trevda-text">
 
-        <h3>{{ advert.title }}</h3>
+        <h3>{{ trevda.title }}</h3>
 
-        <p>{{ advert.description }}</p>
+        <p>{{ trevda.description }}</p>
 
-        <a href="{{ advert.url }}"
+        <a href="{{ trevda.url }}"
            target="_blank"
            rel="sponsored noopener noreferrer">
 
-          {{ advert.buttonText | default: "Learn More" }}
+          {{ trevda.buttonText | default: "Learn More" }}
 
         </a>
 
@@ -47,14 +47,14 @@
 
     {% else %}
 
-      <div class="advert-placeholder">
+      <div class="trevda-placeholder">
 
-        <span>Advertisement Space</span>
+        <span>trevdaisement Space</span>
 
         <small>
-          {{ advert.width | default: "Responsive" }}
+          {{ trevda.width | default: "Responsive" }}
           ×
-          {{ advert.height | default: "Auto" }}
+          {{ trevda.height | default: "Auto" }}
         </small>
 
       </div>

@@ -1,76 +1,124 @@
+{%- if sidebar -%}
 
-{% if sidebar %}
+  {%- assign sidebarHeadingId = 'sidebar-heading' -%}
 
-<aside class="site-sidebar"
-       aria-label="Sidebar navigation">
+  <aside
+    class="site-sidebar"
+    {% if sidebar.title %}aria-labelledby="{{ sidebarHeadingId }}"{% else %}aria-label="Sidebar navigation"{% endif %}>
 
-  <div class="sidebar-inner">
+    <div class="sidebar-inner">
 
-    {% if sidebar.title %}
-      <h2>{{ sidebar.title }}</h2>
-    {% endif %}
+      {%- if sidebar.title -%}
+        <h2 class="sidebar-title" id="{{ sidebarHeadingId }}">{{ sidebar.title }}</h2>
+      {%- endif -%}
 
-    <ul class="sidebar-menu">
+      <nav aria-label="{{ sidebar.title | default: 'Section' }} links">
+        <ul class="sidebar-menu">
 
-      {% for item in sidebar.items %}
+          {%- for item in sidebar.items -%}
 
-        <li class="sidebar-item">
+            {%- assign isCurrent = false -%}
+            {%- if page.url == item.url -%}
+              {%- assign isCurrent = true -%}
+            {%- endif -%}
 
-          <a href="{{ item.url }}"
-             {% if page.url == item.url %}
-               aria-current="page"
-             {% endif %}>
+            {%- assign hasActiveDescendant = false -%}
+            {%- if item.children -%}
+              {%- for child in item.children -%}
+                {%- if page.url == child.url -%}
+                  {%- assign hasActiveDescendant = true -%}
+                {%- endif -%}
+                {%- if child.children -%}
+                  {%- for subchild in child.children -%}
+                    {%- if page.url == subchild.url -%}
+                      {%- assign hasActiveDescendant = true -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
 
-            {{ item.title }}
+            <li class="sidebar-item{% if item.children %} has-children{% endif %}{% if isCurrent or hasActiveDescendant %} active{% endif %}">
 
-          </a>
+              <a
+                href="{{ item.url }}"
+                {% if isCurrent %}aria-current="page"{% endif %}
+                {% if item.titleAttr %}title="{{ item.titleAttr }}"{% endif %}>
+                {{ item.title }}
+              </a>
 
-          {% if item.children %}
+              {%- if item.children -%}
 
-            <ul class="sidebar-submenu">
+                <ul class="sidebar-submenu">
 
-              {% for child in item.children %}
+                  {%- for child in item.children -%}
 
-                <li>
+                    {%- assign isChildCurrent = false -%}
+                    {%- if page.url == child.url -%}
+                      {%- assign isChildCurrent = true -%}
+                    {%- endif -%}
 
-                  <a href="{{ child.url }}">
-                    {{ child.title }}
-                  </a>
+                    {%- assign hasActiveSubchild = false -%}
+                    {%- if child.children -%}
+                      {%- for subchild in child.children -%}
+                        {%- if page.url == subchild.url -%}
+                          {%- assign hasActiveSubchild = true -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
 
-                  {% if child.children %}
+                    <li class="sidebar-subitem{% if child.children %} has-children{% endif %}{% if isChildCurrent or hasActiveSubchild %} active{% endif %}">
 
-                    <ul class="sidebar-submenu-level-3">
+                      <a
+                        href="{{ child.url }}"
+                        {% if isChildCurrent %}aria-current="page"{% endif %}
+                        {% if child.titleAttr %}title="{{ child.titleAttr }}"{% endif %}>
+                        {{ child.title }}
+                      </a>
 
-                      {% for subchild in child.children %}
+                      {%- if child.children -%}
 
-                        <li>
-                          <a href="{{ subchild.url }}">
-                            {{ subchild.title }}
-                          </a>
-                        </li>
+                        <ul class="sidebar-submenu-level-3">
 
-                      {% endfor %}
+                          {%- for subchild in child.children -%}
 
-                    </ul>
+                            {%- assign isSubchildCurrent = false -%}
+                            {%- if page.url == subchild.url -%}
+                              {%- assign isSubchildCurrent = true -%}
+                            {%- endif -%}
 
-                  {% endif %}
+                            <li class="sidebar-subitem-level-3{% if isSubchildCurrent %} active{% endif %}">
+                              <a
+                                href="{{ subchild.url }}"
+                                {% if isSubchildCurrent %}aria-current="page"{% endif %}
+                                {% if subchild.titleAttr %}title="{{ subchild.titleAttr }}"{% endif %}>
+                                {{ subchild.title }}
+                              </a>
+                            </li>
 
-                </li>
+                          {%- endfor -%}
 
-              {% endfor %}
+                        </ul>
 
-            </ul>
+                      {%- endif -%}
 
-          {% endif %}
+                    </li>
 
-        </li>
+                  {%- endfor -%}
 
-      {% endfor %}
+                </ul>
 
-    </ul>
+              {%- endif -%}
 
-  </div>
+            </li>
 
-</aside>
+          {%- endfor -%}
 
-{% endif %}
+        </ul>
+      </nav>
+
+    </div>
+
+  </aside>
+
+{%- endif -%}

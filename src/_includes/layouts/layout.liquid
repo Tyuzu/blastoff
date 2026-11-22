@@ -40,12 +40,19 @@
   <script src="/assets/js/main.js" defer></script>
   <script src="/assets/js/navigation.js" defer></script>
   <script src="/assets/js/modal.js" defer></script>
-  <script src="/assets/js/advert.js" defer></script>
+  <script src="/assets/js/trevda.js" defer></script>
 <script src="/assets/js/fileupload.js" defer></script>
 <script src="/assets/js/camera.js" defer></script>
 
 <a href="#main-content" class="skip-link">
   Skip to main content
 </a>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    });
+  }
+</script>
 </body>
 </html>

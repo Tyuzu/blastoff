@@ -1,44 +1,92 @@
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+{%- comment -%}
+  Prevent duplicate "| Site Name" if the front matter title already includes it,
+  or if the title matches site.name.
+{%- endcomment -%}
+{%- capture pageTitle -%}
+  {%- if title and title != site.name -%}
+    {%- if title contains site.name -%}
+      {{ title }}
+    {%- else -%}
+      {{ title }} | {{ site.name }}
+    {%- endif -%}
+  {%- else -%}
+    {{ site.name }}{% if site.tagline %} | {{ site.tagline }}{% endif %}
+  {%- endif -%}
+{%- endcapture -%}
 
-<title>
-  {% if title %}
-    {{ title }} | {{ site.name }}
-  {% else %}
-    {{ site.name }}
-  {% endif %}
-</title>
+<title>{{ pageTitle | strip }}</title>
 
-<meta name="description"
-      content="{{ description | default: site.description }}">
-
+{%- assign metaDescription = description | default: site.description -%}
+<meta name="description" content="{{ metaDescription }}">
 <meta name="author" content="{{ site.author }}">
+<meta name="robots" content="{{ robots | default: 'index, follow' }}">
 
-<link rel="canonical"
-      href="{{ site.url }}{{ page.url }}">
+{%- comment -%} Ensure clean canonical URLs without double slashes {%- endcomment -%}
+{%- assign canonicalUrl = page.url | prepend: site.url -%}
+<link rel="canonical" href="{{ canonicalUrl }}">
 
-<meta property="og:title"
-      content="{{ title | default: site.name }}">
+<!-- Open Graph / Social Sharing -->
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ title | default: site.name }}">
+<meta property="og:description" content="{{ metaDescription }}">
+<meta property="og:type" content="{{ ogType | default: 'website' }}">
+<meta property="og:url" content="{{ canonicalUrl }}">
+<meta property="og:locale" content="{{ site.locale | default: 'en_US' }}">
+<!-- PWA Manifest & Theme -->
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="{{ site.themeColor | default: '#0f172a' }}">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="{{ site.shortName | default: site.name }}">
 
-<meta property="og:description"
-      content="{{ description | default: site.description }}">
+<!-- Favicons & Apple Touch Icon -->
+<link rel="icon" href="/favicon.png" sizes="32x32">
+<link rel="icon" href="/assets/icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
 
-<meta property="og:type" content="website">
+{%- assign ogImage = image | default: site.defaultImage -%}
+{%- if ogImage -%}
+  <meta property="og:image" content="{{ ogImage | prepend: site.url }}">
+  <meta property="og:image:alt" content="{{ imageAlt | default: title | default: site.name }}">
+{%- endif -%}
 
-<meta property="og:url"
-      content="{{ site.url }}{{ page.url }}">
+<!-- Twitter / X Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title | default: site.name }}">
+<meta name="twitter:description" content="{{ metaDescription }}">
+{%- if ogImage -%}
+  <meta name="twitter:image" content="{{ ogImage | prepend: site.url }}">
+{%- endif -%}
 
+<!-- Structured Data (JSON-LD) for Rich Results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{ schemaType | default: 'WebSite' }}",
+  "name": "{{ title | default: site.name }}",
+  "description": "{{ metaDescription }}",
+  "url": "{{ canonicalUrl }}"
+}
+</script>
+
+<!-- Stylesheets -->
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/navigation.css">
 <link rel="stylesheet" href="/assets/css/responsive.css">
-<link rel="stylesheet" href="/assets/css/advert.css">
+<link rel="stylesheet" href="/assets/css/trevda.css">
 <link rel="stylesheet" href="/assets/css/uploads.css">
 
-{% if page.extraCSS %}
-  {% for stylesheet in page.extraCSS %}
+{%- comment -%}
+  In Eleventy, front matter variables sit at the top level (extraCSS),
+  while computed data can also live under page.extraCSS. Supporting both prevents silent failures.
+{%- endcomment -%}
+{%- assign customStyles = extraCSS | default: page.extraCSS -%}
+{%- if customStyles -%}
+  {%- for stylesheet in customStyles -%}
     <link rel="stylesheet" href="{{ stylesheet }}">
-  {% endfor %}
-{% endif %}
+  {%- endfor -%}
+{%- endif -%}

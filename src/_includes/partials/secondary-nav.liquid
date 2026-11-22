@@ -1,28 +1,32 @@
+{%- if secondaryNavigation -%}
 
-{% if secondaryNavigation %}
+  <nav
+    class="secondary-nav"
+    aria-label="{{ secondaryNavigationLabel | default: 'Section navigation' }}">
 
-<nav class="secondary-nav"
-     aria-label="Section navigation">
+    <ul class="secondary-nav-inner">
 
-  <div class="secondary-nav-inner">
+      {%- for item in secondaryNavigation -%}
 
-    {% for item in secondaryNavigation %}
+        {%- assign isCurrent = false -%}
+        {%- if page.url == item.url -%}
+          {%- assign isCurrent = true -%}
+        {%- endif -%}
 
-      <a
-        href="{{ item.url }}"
-        class="secondary-nav-item
-          {% if page.url == item.url %}
-            active
-          {% endif %}">
+        <li class="secondary-nav-list-item{% if isCurrent %} active{% endif %}">
+          <a
+            href="{{ item.url }}"
+            class="secondary-nav-item{% if isCurrent %} active{% endif %}"
+            {% if isCurrent %}aria-current="page"{% endif %}
+            {% if item.titleAttr %}title="{{ item.titleAttr }}"{% endif %}>
+            {{ item.title }}
+          </a>
+        </li>
 
-        {{ item.title }}
+      {%- endfor -%}
 
-      </a>
+    </ul>
 
-    {% endfor %}
+  </nav>
 
-  </div>
-
-</nav>
-
-{% endif %}
+{%- endif -%}
