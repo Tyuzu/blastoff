@@ -1,7 +1,7 @@
 ---
 layout: layouts/layout.liquid
-title: Home
-description: Welcome to our website.
+title: Free Online Image, Video & PDF Tools | {{ site.name }}
+description: Convert, edit, and compress images, videos, and PDFs directly in your browser. Fast, free, and secure online media and document utilities.
 permalink: /
 bodyClass: home-page
 showPageTitle: false
@@ -38,53 +38,52 @@ sidebar:
           url: /services/design/
 ---
 
-<section class="hero">
+<section class="hero" aria-labelledby="hero-heading">
 
-  <h1>Welcome to {{ site.name }}</h1>
+  <h1 id="hero-heading">Free Online Image, Video &amp; PDF Tools</h1>
 
   <p>
-    Discover our services, resources and latest updates.
+    Convert, edit, resize, and merge your media and documents instantly in your browser—no software installation required.
   </p>
 
-  <a href="/about/" class="button">
-    Learn More
+  <a href="/about/" class="button" aria-label="Learn more about {{ site.name }} and our online tools">
+    Learn More About Us
   </a>
 
 </section>
 
-<section class="home-content">
+<section class="home-content" aria-labelledby="workflow-heading">
 
-  <h2>Explore Our Website</h2>
+  <h2 id="workflow-heading">Streamline Your Digital Workflow</h2>
 
   <p>
-    Build your experience with our collection of information
-    and resources.
+    Whether you are optimizing web graphics, trimming video clips for social media, or combining business documents, our browser-based utilities help you get the job done quickly and securely.
   </p>
 
 </section>
 
-<section class="featured-section">
+<section class="featured-section" aria-labelledby="tools-heading">
 
-  <h2>Featured Content</h2>
+  <h2 id="tools-heading">Featured Online Media &amp; Document Tools</h2>
 
   <div class="featured-grid">
 
     <article class="featured-card">
-      <h3>About Us</h3>
-      <p>Learn more about our organization.</p>
-      <a href="/about/">Explore</a>
+      <h3>Online Image Editor &amp; Converter</h3>
+      <p>Resize, crop, compress, and convert JPG, PNG, and WebP images without losing quality.</p>
+      <a href="/image-tools/" aria-label="Explore online image editing and conversion tools">Explore Image Tools</a>
     </article>
 
     <article class="featured-card">
-      <h3>Our Services</h3>
-      <p>Discover what we offer.</p>
-      <a href="/services/">Explore</a>
+      <h3>Browser-Based Video Editor &amp; Trimmer</h3>
+      <p>Cut, clip, apply filters, and convert video formats effortlessly right from your browser.</p>
+      <a href="/video-tools/" aria-label="Explore online video editing and clipping tools">Explore Video Tools</a>
     </article>
 
     <article class="featured-card">
-      <h3>Resources</h3>
-      <p>Browse our resources.</p>
-      <a href="/resources/">Explore</a>
+      <h3>All-in-One PDF Merger &amp; Creator</h3>
+      <p>Scan, create, edit, compress, and merge PDF documents securely in seconds.</p>
+      <a href="/pdf-tools/" aria-label="Explore online PDF merging and editing tools">Explore PDF Tools</a>
     </article>
 
   </div>

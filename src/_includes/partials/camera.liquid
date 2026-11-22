@@ -1,0 +1,69 @@
+
+<div class="camera-component" data-camera>
+
+  <h3>{{ cameraTitle | default: "Camera Capture" }}</h3>
+
+  <p class="camera-description">
+    Capture a photo using your device camera.
+  </p>
+
+  <div class="camera-preview-container">
+
+    <video
+      class="camera-video"
+      autoplay
+      playsinline
+      muted
+      hidden>
+    </video>
+
+    <canvas class="camera-canvas" hidden></canvas>
+
+    <img
+      class="camera-result"
+      alt="Captured photograph"
+      hidden>
+
+    <div class="camera-placeholder">
+      Camera preview will appear here.
+    </div>
+
+  </div>
+
+  <div class="camera-controls">
+
+    <button type="button" class="camera-start">
+      Open Camera
+    </button>
+
+    <button type="button" class="camera-capture" hidden>
+      Capture Photo
+    </button>
+
+    <button type="button" class="camera-stop" hidden>
+      Stop Camera
+    </button>
+
+    <button type="button" class="camera-retake" hidden>
+      Retake
+    </button>
+
+  </div>
+
+  <div class="camera-fallback">
+
+    <label>
+      Or use your device camera:
+
+      <input
+        type="file"
+        accept="image/*"
+        capture="environment"
+        class="camera-file-input">
+    </label>
+
+  </div>
+
+  <p class="camera-status" aria-live="polite"></p>
+
+</div>

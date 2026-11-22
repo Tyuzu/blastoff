@@ -1,0 +1,52 @@
+
+<div class="file-upload-component"
+     data-file-upload>
+
+  <label class="upload-label">
+    {{ uploadTitle | default: "Upload Files" }}
+  </label>
+
+  <div class="upload-dropzone"
+       tabindex="0"
+       role="button"
+       aria-label="Choose or drop files">
+
+    <input
+      type="file"
+      class="upload-input"
+      {% if uploadMultiple %}
+        multiple
+      {% endif %}
+      accept="{{ uploadAccept | default: 'image/*,.pdf,.doc,.docx' }}">
+
+    <div class="upload-icon">
+      <span>↑</span>
+    </div>
+
+    <h3>Drag and drop files here</h3>
+
+    <p>or click to browse files</p>
+
+    <small>
+      Maximum file size:
+      {{ uploadMaxSize | default: 10 }} MB
+    </small>
+
+  </div>
+
+  <div class="upload-file-list"
+       aria-live="polite">
+
+  </div>
+
+  <div class="upload-actions">
+
+    <button type="button"
+            class="upload-clear"
+            hidden>
+      Clear All
+    </button>
+
+  </div>
+
+</div>

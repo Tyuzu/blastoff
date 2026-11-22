@@ -1,0 +1,68 @@
+
+{% if advert.enabled %}
+
+<aside
+  class="advert advert-{{ advert.position | default: 'content' }}"
+  aria-label="Advertisement">
+
+  <div class="advert-label">
+    Advertisement
+  </div>
+
+  <div class="advert-content">
+
+    {% if advert.type == "html" %}
+
+      {{ advert.html }}
+
+    {% elsif advert.type == "image" %}
+
+      <a href="{{ advert.url }}"
+         target="_blank"
+         rel="sponsored noopener noreferrer">
+
+        <img
+          src="{{ advert.image }}"
+          alt="{{ advert.alt | default: 'Sponsored advertisement' }}">
+
+      </a>
+
+    {% elsif advert.type == "text" %}
+
+      <div class="advert-text">
+
+        <h3>{{ advert.title }}</h3>
+
+        <p>{{ advert.description }}</p>
+
+        <a href="{{ advert.url }}"
+           target="_blank"
+           rel="sponsored noopener noreferrer">
+
+          {{ advert.buttonText | default: "Learn More" }}
+
+        </a>
+
+      </div>
+
+    {% else %}
+
+      <div class="advert-placeholder">
+
+        <span>Advertisement Space</span>
+
+        <small>
+          {{ advert.width | default: "Responsive" }}
+          ×
+          {{ advert.height | default: "Auto" }}
+        </small>
+
+      </div>
+
+    {% endif %}
+
+  </div>
+
+</aside>
+
+{% endif %}
